@@ -14,7 +14,7 @@ public class GraphDirector {
     }
 
     public ImmutableValueGraph<Integer, Integer> getMultipleGraph(List<Integer> nodes) {
-        ImmutableValueGraph.Builder builder = this.builder.allowsSelfLoops(true).immutable();
+        ImmutableValueGraph.Builder builder = this.builder.immutable();
         for (Integer node : nodes)
             builder.addNode(node);
         for (Integer i : nodes) {

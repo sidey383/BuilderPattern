@@ -13,6 +13,7 @@ public class Main {
     public static void main(String[] args) {
         stringBuilderExample();
         guavaTreeExample();
+        guavaTreeExceptionExample();
         telegramBotExample();
     }
 
@@ -57,6 +58,18 @@ public class Main {
         printGraph(director2.getMultipleGraph(List.of(2, 24, 3)));
     }
 
+    /**
+     * Пример, где builder следит за правильностью создаваемового им объекта
+     * **/
+    public static void guavaTreeExceptionExample() {
+        try {
+            GraphDirector director = new GraphDirector(ValueGraphBuilder.undirected().allowsSelfLoops(false));
+            director.getMultipleGraph(List.of(2, 24, 3));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void printGraph(ImmutableValueGraph<Integer, Integer> graph) {
         graph.edges().forEach((e) -> {
             graph.edgeValue(e).ifPresent( val -> System.out.println(e.nodeU() + ", " + e.nodeV() + " : " + val));
@@ -72,7 +85,7 @@ public class Main {
                 .okHttpClient(new OkHttpClient())
                 .updateListenerSleep(1000)
                 .useTestServer(true).build();
-        TelegramBot bot2 = new TelegramBot.Builder("BOT_TOKEN")
+        TelegramBot bot2 = new TelegramBot.Builder("BOT_TOKEN") // botToken - обязательное поле.
                 .build();
     }
 
